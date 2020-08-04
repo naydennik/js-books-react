@@ -1,37 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
+import { Link } from "react-router-dom";
+import Button from "../../components/button";
 
 const ErrorPage = () => {
   return (
     <div>
       <Header />
-      <div className="container py-5 ">
-        <div className="row h-100 align-items-center ">
-          <div className="col-lg-6">
-            <h1 className="display-1">Oops!</h1>
-            <div className="lead text-muted mb-0">
-              <h2>404 Not Found</h2>
-              <div className="error-details">
-                Sorry, an error has occured, Requested page not found!
+      <body className={styles.body}>
+        <div className="container">
+          <div className="row text-center">
+            <div className={styles["error-main"]}>
+              <div className="error-main">
+                <h1>404</h1>
+                <h2>Page not found</h2>
+
+                {/* <div className={styles.button}>
+                  <a className="btn btn-primary btn-lg" href="/" role="button">
+                    TAKE ME HOME
+                  </a>
+                </div> */}
               </div>
-              <div className={styles.button}>
-                <Link to="/">
-                  <button
-                    type="button"
-                    id="button"
-                    className="btn btn-primary btn-lg"
-                  >
-                    TAKE ME HOME!
-                  </button>
-                </Link>
-              </div>
+              <Link to="/">
+                <Button id={styles.button} name="TAKE ME HOME" />
+              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </body>
       <Footer />
     </div>
   );

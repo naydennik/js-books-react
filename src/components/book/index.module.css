@@ -1,0 +1,12 @@
+.image {
+  height: 400px;
+  width: 300px;
+}
+
+.col-lg-4 {
+  padding: 50px;
+}
+
+#lead {
+  margin-top: 20px;
+}

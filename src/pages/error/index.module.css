@@ -1,3 +1,21 @@
-.button {
+.error-main {
+  background-color: #fff;
+  padding: 10%;
+  margin: auto;
+}
+.error-main h1 {
+  font-weight: bold;
+  color: #444444;
+  font-size: 100px;
+  text-shadow: 2px 4px 5px #6e6e6e;
+}
+.error-main h2 {
+  color: #42494f;
+  font-weight: bold;
+  font-size: 30px;
+  text-shadow: 1px 2px 3px #6e6e6e;
+}
+#button {
   padding: 5%;
+  margin-top: 10%;
 }

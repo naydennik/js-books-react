@@ -5,3 +5,7 @@
   left: 0px;
   will-change: transform;
 }
+
+.header a {
+  font-size: 15px;
+}
