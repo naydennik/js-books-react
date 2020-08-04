@@ -1,8 +1,8 @@
-.footer a {
+#footer a {
   padding-left: 3px;
 }
 
-.footer {
+#footer {
   position: relative;
   flex-shrink: 0;
   padding: 50px;

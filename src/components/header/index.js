@@ -68,7 +68,7 @@ const Header = () => {
                   ALL BOOKS
                 </a>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="">
+                <a className="dropdown-item" href="/create">
                   CREATE BOOK
                 </a>
               </div>

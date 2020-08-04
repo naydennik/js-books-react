@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer id={styles.footer}>
       <div className="row text-center">
         <div className="col-lg-12">
           <p>
