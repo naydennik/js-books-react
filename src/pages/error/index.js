@@ -4,6 +4,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { Link } from "react-router-dom";
 import Button from "../../components/button";
+import AlertMessage from "../../components/alert";
 
 const ErrorPage = () => {
   return (
@@ -16,12 +17,6 @@ const ErrorPage = () => {
               <div className="error-main">
                 <h1>404</h1>
                 <h2>Page not found</h2>
-
-                {/* <div className={styles.button}>
-                  <a className="btn btn-primary btn-lg" href="/" role="button">
-                    TAKE ME HOME
-                  </a>
-                </div> */}
               </div>
               <Link to="/">
                 <Button id={styles.button} name="TAKE ME HOME" />
