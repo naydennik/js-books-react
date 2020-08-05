@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
+import auth from "../../services/authService";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState("dropdown-menu");
+  const { isAdmin, logout } = auth;
+  const history = useHistory();
 
   const toggle = (e) => {
     e.preventDefault();
@@ -10,6 +14,14 @@ const Header = () => {
       ? setDropdown("dropdown-menu show")
       : setDropdown("dropdown-menu");
   };
+
+  const handleLogout = () => {
+    return logout().then(() => {
+      history.push("/");
+    });
+  };
+
+  const username = sessionStorage.getItem("username");
 
   return (
     <div className={styles.header}>
@@ -28,31 +40,36 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="/login">
-                LOGIN <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/register">
-                REGISTER
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/logout">
-                LOGOUT
-              </a>
-            </li>
+            {!username ? (
+              <>
+                <li className="nav-item active">
+                  <a className="nav-link" href="/login">
+                    LOGIN <span className="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/register">
+                    REGISTER
+                  </a>
+                </li>{" "}
+              </>
+            ) : (
+              <li className="nav-item">
+                <p className="nav-link" role="button" onClick={handleLogout}>
+                  LOGOUT
+                </p>
+              </li>
+            )}
+
             <li className="nav-item">
               <a className="nav-link" href="/about">
                 ABOUT
               </a>
             </li>
             <li className="nav-item dropdown show">
-              <a
+              <p
                 className="nav-link dropdown-toggle"
                 data-toggle="dropdown"
                 href=""
@@ -62,33 +79,40 @@ const Header = () => {
                 onClick={(e) => toggle(e)}
               >
                 BOOKS
-              </a>
+              </p>
               <div className={dropdown} x-placement="bottom-start">
                 <a className="dropdown-item" href="/books">
                   ALL BOOKS
                 </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="/create">
-                  CREATE BOOK
-                </a>
+
+                {isAdmin ? (
+                  <>
+                    <div className="dropdown-divider"></div>
+                    <a className="dropdown-item" href="/create">
+                      CREATE BOOK
+                    </a>
+                  </>
+                ) : null}
               </div>
             </li>
           </ul>
-          <ul className="navbar-nav ml-auto nav-flex-icons">
-            <li className="navbar-nav">
-              <a className="navbar-brand">Hello, Nayden</a>
-            </li>
-            <li className="nav-item avatar">
-              <a className="nav-link p-0">
-                <img
-                  src="/profile.png"
-                  className="rounded-circle z-depth-0"
-                  alt=""
-                  height="35"
-                />
-              </a>
-            </li>
-          </ul>
+          {username ? (
+            <ul className="navbar-nav ml-auto nav-flex-icons">
+              <li className="navbar-nav">
+                <p className="navbar-brand">Hello, {username}</p>
+              </li>
+              <li className="nav-item avatar">
+                <p className="nav-link p-0">
+                  <img
+                    src="/profile.png"
+                    className="rounded-circle z-depth-0"
+                    alt=""
+                    height="35"
+                  />
+                </p>
+              </li>
+            </ul>
+          ) : null}
         </div>
       </nav>
     </div>

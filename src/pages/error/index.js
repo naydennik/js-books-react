@@ -4,13 +4,12 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { Link } from "react-router-dom";
 import Button from "../../components/button";
-import AlertMessage from "../../components/alert";
 
 const ErrorPage = () => {
   return (
     <div>
       <Header />
-      <body className={styles.body}>
+      <div className={styles.body}>
         <div className="container">
           <div className="row text-center">
             <div className={styles["error-main"]}>
@@ -24,7 +23,7 @@ const ErrorPage = () => {
             </div>
           </div>
         </div>
-      </body>
+      </div>
       <Footer />
     </div>
   );

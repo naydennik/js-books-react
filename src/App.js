@@ -1,12 +1,22 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import LandingPage from "./pages/landing";
+import UserContext from "./config/context";
+import { useState } from "react";
 
-function App() {
-  return <div></div>;
-}
+const App = (props) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  return (
+    <UserContext.Provider
+      value={{
+        loggedIn,
+        setLoggedIn,
+      }}
+    >
+      {props.children}
+    </UserContext.Provider>
+  );
+};
 
 export default App;

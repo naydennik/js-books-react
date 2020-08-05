@@ -6,6 +6,7 @@
   will-change: transform;
 }
 
-.header a {
+.header p {
   font-size: 15px;
+  margin: auto;
 }

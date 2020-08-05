@@ -10,7 +10,7 @@ const Book = ({ title, subtitle, author, imageUrl, details }) => {
         <h3 className="card-title">{subtitle}</h3>
         <h4 className="card-title">Author: {author}</h4>
       </div>
-      <img className={styles.image} src={imageUrl} alt="Book Image" />
+      <img className={styles.image} src={imageUrl} alt={title} />
       <br />
       <Button id={styles.lead} name="VIEW DETAILS" />
     </div>

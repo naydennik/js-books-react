@@ -2,3 +2,13 @@
   margin-left: 40%;
   margin-top: 5%;
 }
+
+#button {
+  padding: 5%;
+  margin-top: 10%;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  line-height: 15px;
+  font-size: small;
+}

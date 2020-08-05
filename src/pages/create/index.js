@@ -24,6 +24,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's title..."
                 name="title"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Book Subtitle"
@@ -31,6 +32,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's subtitle..."
                 name="subtitle"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Author"
@@ -38,6 +40,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's author..."
                 name="author"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Image"
@@ -45,6 +48,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's image link..."
                 name="image"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Description"
@@ -52,6 +56,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's description..."
                 name="description"
+                onChange={() => {}}
               />
               <InputCreate
                 title="ISBN"
@@ -59,6 +64,7 @@ const CreatePage = () => {
                 type="number"
                 placeholder="Please enter the book's ISBN..."
                 name="isbn"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Publisher"
@@ -66,6 +72,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's publisher..."
                 name="publisher"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Published on"
@@ -73,6 +80,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the book's publishing date..."
                 name="published"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Pages"
@@ -80,6 +88,7 @@ const CreatePage = () => {
                 type="number"
                 placeholder="Please enter the number of book's pages..."
                 name="pages"
+                onChange={() => {}}
               />
               <InputCreate
                 title="Official Website"
@@ -87,6 +96,7 @@ const CreatePage = () => {
                 type="text"
                 placeholder="Please enter the link to book's official website..."
                 name="website"
+                onChange={() => {}}
               />
             </div>
           </div>
