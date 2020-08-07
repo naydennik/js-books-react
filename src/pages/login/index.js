@@ -12,10 +12,6 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-  // handleChange = (event) => {
-  //   this.setState({ name: event.target.value });
-  // };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -41,17 +37,21 @@ const LoginPage = (props) => {
             type="text"
             label="Username"
             id="username"
+            placeholder="Please enter username..."
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required={true}
           />
           <Input
             type="password"
             label="Password"
             id="password"
+            placeholder="Please enter password..."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required={true}
           />
-          <Button id={styles.button} name="LOGIN" type="submit" />
+          <Button name="LOGIN" type="submit" />
         </div>
       </form>
       <Footer />

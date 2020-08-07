@@ -11,7 +11,6 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const history = useHistory();
 
   const handleSubmit = (event) => {
@@ -25,7 +24,8 @@ const RegisterPage = () => {
       window.alert("Password and Re-Password don't match!");
     }
 
-    auth.register({ username, password, imageUrl }).then((res) => {
+    auth.register({ username, password }).then((res) => {
+      console.log(res);
       history.push("/books");
     });
   };
@@ -40,46 +40,32 @@ const RegisterPage = () => {
           <br />
           <Input
             type="text"
-            label="Username"
+            label="Username*"
             id="username"
+            placeholder="Please enter username..."
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required={true}
           />
           <Input
             type="password"
-            label="Password"
+            label="Password*"
             id="password"
+            placeholder="Please enter password..."
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required={true}
           />
           <Input
             type="password"
-            label="Re-confirm Password"
+            label="Re-confirm Password*"
             id="rePassword"
+            placeholder="Please repeat the password..."
             value={rePassword}
             onChange={(e) => setRePassword(e.target.value)}
+            required={true}
           />
-          <Input
-            type="text"
-            label="Image URL"
-            id="imageUrl"
-            value={imageUrl}
-            onChange={(e) => {
-              if (e.target.value === undefined || e.target.value === "") {
-                setImageUrl(
-                  "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
-                );
-              } else {
-                setImageUrl(e.target.value);
-              }
-            }}
-          />
-          <Button
-            id={styles.button}
-            name="REGISTER"
-            type="submit"
-            onClick={() => {}}
-          />
+          <Button name="REGISTER" type="submit" onClick={() => {}} />
         </div>
       </form>
       <Footer />

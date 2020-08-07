@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import auth from "../../services/authService";
 import { useHistory } from "react-router-dom";
+import config from "../../config/config";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState("dropdown-menu");
-  const { isAdmin, logout } = auth;
+  const [isAdmin, setisAdmin] = useState(false);
+  const { logout } = auth;
   const history = useHistory();
 
   const toggle = (e) => {
@@ -20,6 +22,12 @@ const Header = () => {
       history.push("/");
     });
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("id") === config.adminId) {
+      setisAdmin(true);
+    }
+  }, []);
 
   const username = sessionStorage.getItem("username");
 
