@@ -4,24 +4,40 @@ import config from "../../config/config";
 import Button from "../../components/button";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import service from "../../services/booksService";
 import Spinner from "../../components/spinner";
 import { useHistory } from "react-router-dom";
+import API from "../../config/api";
 
 const DetailsPage = () => {
   const [isAdmin, setisAdmin] = useState(false);
   const [book, setBook] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
+  const url = `/appdata/${config.kinveyAppKey}/books`;
+  const token = sessionStorage.getItem("authtoken");
+  const id = window.location.pathname.split("/")[2];
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Kinvey ${token}`,
+  };
 
   useEffect(() => {
-    const bookId = window.location.pathname.split("/")[2];
+    let isMounted = true;
+
     if (sessionStorage.getItem("id") === config.adminId) {
       setisAdmin(true);
     }
-    service.getBookDetails(bookId).then((data) => setBook(data));
-    setIsLoading(false);
-  }, []);
+    if (isMounted) {
+      API.get(`${url}/${id}`, { headers }).then(({ data }) => {
+        setBook(data);
+      });
+      setIsLoading(false);
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [headers, id, url]);
 
   return (
     <div>
