@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import styles from "./index.module.css";
 import service from "../../services/booksService";
 import Header from "../../components/header";
@@ -9,6 +10,7 @@ import API from "../../config/api";
 import config from "../../config/config";
 
 class EditPage extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
 
@@ -70,6 +72,7 @@ class EditPage extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true;
     const url = `/appdata/${config.kinveyAppKey}/books`;
     const token = sessionStorage.getItem("authtoken");
 
@@ -80,21 +83,29 @@ class EditPage extends Component {
     let book;
 
     await API.get(`${url}/${this.id}`, { headers }).then(({ data }) => {
-      book = data;
+      if (this._isMounted) {
+        book = data;
+        this.setState({
+          title: book.title,
+          subtitle: book.subtitle,
+          author: book.author,
+          imageUrl: book.imageUrl,
+          description: book.description,
+          isbn: book.isbn,
+          publisher: book.publisher,
+          published: book.published,
+          pages: book.pages,
+          website: book.website,
+        });
+      }
     });
+  }
 
-    this.setState({
-      title: book.title,
-      subtitle: book.subtitle,
-      author: book.author,
-      imageUrl: book.imageUrl,
-      description: book.description,
-      isbn: book.isbn,
-      publisher: book.publisher,
-      published: book.published,
-      pages: book.pages,
-      website: book.website,
-    });
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state, callback) => {
+      return;
+    };
   }
 
   render() {
@@ -202,4 +213,4 @@ class EditPage extends Component {
   }
 }
 
-export default EditPage;
+export default withRouter(EditPage);

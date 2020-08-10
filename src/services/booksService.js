@@ -46,7 +46,7 @@ const booksServices = {
   },
 
   createBook(data) {
-    return API.post(url, data)
+    return API.post(url, data, { headers })
       .then((res) => {
         if (res.status >= 200 && res.status < 300) {
           window.alert("Successfully created!");

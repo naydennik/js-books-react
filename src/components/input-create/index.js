@@ -6,6 +6,7 @@ const InputCreate = ({
   type,
   placeholder,
   name,
+  required,
   value,
   onChange,
 }) => {
@@ -18,6 +19,7 @@ const InputCreate = ({
         type={type}
         placeholder={placeholder}
         name={name}
+        required={required}
         value={value}
         onChange={onChange}
       />

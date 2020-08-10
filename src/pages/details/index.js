@@ -28,12 +28,14 @@ const DetailsPage = () => {
     if (sessionStorage.getItem("id") === config.adminId) {
       setisAdmin(true);
     }
-    if (isMounted) {
-      API.get(`${url}/${id}`, { headers }).then(({ data }) => {
+
+    API.get(`${url}/${id}`, { headers }).then(({ data }) => {
+      if (isMounted) {
         setBook(data);
-      });
-      setIsLoading(false);
-    }
+        setIsLoading(false);
+      }
+    });
+
     return () => {
       isMounted = false;
     };
