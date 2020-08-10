@@ -5,7 +5,6 @@ import Footer from "../../components/footer";
 import Spinner from "../../components/spinner";
 import API from "../../config/api";
 import config from "../../config/config";
-import service from "../../services/booksService";
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
@@ -19,14 +18,16 @@ const BooksPage = () => {
   };
 
   useEffect(() => {
-    API.get(url, { headers })
-      .then(({ data }) => {
+    let isMounted = true;
+    API.get(url, { headers }).then(({ data }) => {
+      if (isMounted) {
         setBooks(data);
         setIsLoading(false);
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
   }, [headers, url]);
 
   const renderBooks = books.map((book) => {

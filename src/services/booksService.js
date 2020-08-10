@@ -11,15 +11,15 @@ const headers = {
 };
 
 const booksServices = {
-  getAllBooks() {
-    return API.get(url, { headers })
-      .then(({ data }) => {
-        return data;
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
-  },
+  // getAllBooks() {
+  //   return API.get(url, { headers })
+  //     .then(({ data }) => {
+  //       return data;
+  //     })
+  //     .catch(() => {
+  //       //console.warn(error);
+  //     });
+  // },
 
   getBookDetails(id) {
     return API.get(`${url}/${id}`, { headers })
