@@ -9,6 +9,7 @@ import RegisterPage from "../pages/register";
 import CreatePage from "../pages/create";
 import ProtectedRoute from "./protected";
 import DetailsPage from "../pages/details";
+import EditPage from "../pages/edit";
 
 const Navigation = () => {
   return (
@@ -18,7 +19,8 @@ const Navigation = () => {
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/details/:id" component={DetailsPage} />
+        <ProtectedRoute path="/details/:id" component={DetailsPage} />
+        <ProtectedRoute path="/edit/:id" component={EditPage} />
         <ProtectedRoute path="/create" component={CreatePage} />
         <ProtectedRoute path="/books" component={BooksPage} />
 

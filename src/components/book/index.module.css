@@ -3,10 +3,10 @@
   width: 300px;
 }
 
-.col-lg-4 {
+#col {
   padding: 50px;
 }
 
 #lead {
-  margin-top: 20px;
+  margin-top: 40px;
 }

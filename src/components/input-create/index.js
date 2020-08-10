@@ -1,6 +1,14 @@
 import React from "react";
 
-const InputCreate = ({ title, id, type, placeholder, name, onChange }) => {
+const InputCreate = ({
+  title,
+  id,
+  type,
+  placeholder,
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <div className="form-group">
       <h4>{title}</h4>
@@ -10,6 +18,7 @@ const InputCreate = ({ title, id, type, placeholder, name, onChange }) => {
         type={type}
         placeholder={placeholder}
         name={name}
+        value={value}
         onChange={onChange}
       />
     </div>

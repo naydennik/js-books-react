@@ -1,11 +1,12 @@
 import React from "react";
+import styles from "./index.module.css";
 
 const Button = ({ name, type, onClick }) => {
   return (
     <button
       className="btn btn-primary btn-lg"
+      id={styles.btn}
       tag="button"
-      id="button"
       type={type}
       onClick={onClick}
     >
