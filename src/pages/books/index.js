@@ -9,15 +9,15 @@ import config from "../../config/config";
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const url = `/appdata/${config.kinveyAppKey}/books`;
-  const token = sessionStorage.getItem("authtoken");
-
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Kinvey ${token}`,
-  };
 
   useEffect(() => {
+    const url = `/appdata/${config.kinveyAppKey}/books`;
+    const token = sessionStorage.getItem("authtoken");
+
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Kinvey ${token}`,
+    };
     let isMounted = true;
     API.get(url, { headers }).then(({ data }) => {
       if (isMounted) {
@@ -28,7 +28,7 @@ const BooksPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [headers, url]);
+  }, []);
 
   const renderBooks = books.map((book) => {
     return (

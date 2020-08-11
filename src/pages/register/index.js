@@ -18,20 +18,32 @@ const RegisterPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (!registerValidator(username, password, rePassword)) {
       return;
-    } else {
-      auth
-        .register({ username, password })
-        .then(() => {
-          history.push("/books");
-        })
-        .catch((err) => {
-          toast.error(err);
-          return;
-        });
     }
+    auth
+      .register({ username, password })
+      .then(() => {
+        window.alert("Successfully registered!");
+        history.push("/login");
+      })
+
+      .catch((err) => {
+        if (err.response.status === 409) {
+          toast.error(
+            "The username is already taken :( \nPlease try again with different one!",
+            {
+              position: toast.POSITION.TOP_CENTER,
+            }
+          );
+        } else {
+          toast.error("Something went wrong :( \nPlease try again!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+        console.error(err);
+        return;
+      });
   };
   return (
     <div>

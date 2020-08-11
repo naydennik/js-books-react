@@ -4,8 +4,11 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import styles from "./index.module.css";
 import Button from "../../components/button";
-import auth from "../../services/authService";
+import auth, { loginUser } from "../../services/authService";
 import { useHistory } from "react-router-dom";
+import loginValidator from "../../services/loginValidator";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState("");
@@ -15,13 +18,33 @@ const LoginPage = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (username === "" || password === "") {
-      window.alert("Please enter Username and Password!");
+    if (!loginValidator(username, password)) {
+      return;
+    } else {
+      auth
+        .login({ username, password })
+        .then((res) => {
+          loginUser({
+            username: res.data.username,
+            authtoken: res.data._kmd.authtoken,
+            id: res.data._id,
+          });
+        })
+        .then(() => {
+          window.alert("Successfully logged in!");
+          history.push("/books");
+        })
+        .catch((err) => {
+          toast.error(
+            "Something went wrong ): Please try again with the correct username and password!",
+            {
+              position: toast.POSITION.TOP_CENTER,
+            }
+          );
+          console.error(err);
+          return;
+        });
     }
-
-    auth.login({ username, password }).then(() => {
-      history.push("/books");
-    });
   };
 
   return (
@@ -42,6 +65,7 @@ const LoginPage = (props) => {
             onChange={(e) => setUsername(e.target.value)}
             required={true}
           />
+          <ToastContainer />
           <Input
             type="password"
             label="Password"
