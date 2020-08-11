@@ -154,6 +154,11 @@ class EditPage extends Component {
                   value={this.state.imageUrl}
                   onChange={this.handleChange}
                 />
+                <img
+                  id="img"
+                  src={this.state.imageUrl}
+                  alt={this.state.title}
+                />
                 <InputCreate
                   title="Description"
                   id="description"

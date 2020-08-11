@@ -9,6 +9,7 @@ const InputCreate = ({
   required,
   value,
   onChange,
+  onBlur,
 }) => {
   return (
     <div className="form-group">
@@ -22,6 +23,7 @@ const InputCreate = ({
         required={required}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );
