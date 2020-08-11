@@ -5,7 +5,7 @@ import Footer from "../../components/footer";
 import styles from "./index.module.css";
 import Button from "../../components/button";
 import auth, { loginUser } from "../../services/authService";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import loginValidator from "../../services/loginValidator";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -77,6 +77,13 @@ const LoginPage = (props) => {
           />
           <Button name="LOGIN" type="submit" />
         </div>
+
+        <p id={styles.register}>Don't have an account? Please register!</p>
+        <Link to="/register">
+          <button className="btn btn-primary" id={styles.regBtn}>
+            REGISTER
+          </button>
+        </Link>
       </form>
       <Footer />
     </div>

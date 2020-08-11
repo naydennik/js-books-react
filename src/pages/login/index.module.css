@@ -2,3 +2,14 @@
   margin-left: 40%;
   margin-top: 5%;
 }
+
+#register {
+  font-size: 12px;
+  margin-left: 2%;
+  margin-top: 5%;
+}
+
+#regBtn {
+  background-color: burlywood;
+  margin-left: 2%;
+}

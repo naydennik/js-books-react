@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./index.module.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import { Link } from "react-router-dom";
@@ -17,8 +18,17 @@ const LandingPage = () => {
           <>
             <p>If you want to look at the collection please login!</p>
             <Link to="/login">
-              <Button name="LOGIN" />
-            </Link>{" "}
+              <button className="btn btn-primary" id={styles.regBtn}>
+                Login
+              </button>
+            </Link>
+            <hr className="my-4" />
+            <p>Don't have an account? Please register!</p>
+            <Link to="/register">
+              <button className="btn btn-primary" id={styles.regBtn}>
+                Register
+              </button>
+            </Link>
           </>
         ) : (
           <>
