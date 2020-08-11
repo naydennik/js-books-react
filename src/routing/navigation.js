@@ -23,7 +23,6 @@ const Navigation = () => {
         <ProtectedRoute path="/edit/:id" component={EditPage} />
         <ProtectedRoute path="/create" component={CreatePage} />
         <ProtectedRoute path="/books" component={BooksPage} />
-
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>

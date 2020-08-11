@@ -6,6 +6,9 @@ import styles from "./index.module.css";
 import Button from "../../components/button";
 import auth from "../../services/authService";
 import { useHistory } from "react-router-dom";
+import registerValidator from "../../services/registerValidator";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -16,18 +19,19 @@ const RegisterPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (username === "" || password === "") {
-      window.alert("Please enter Username and Password!");
+    if (!registerValidator(username, password, rePassword)) {
+      return;
+    } else {
+      auth
+        .register({ username, password })
+        .then(() => {
+          history.push("/books");
+        })
+        .catch((err) => {
+          toast.error(err);
+          return;
+        });
     }
-
-    if (password !== rePassword) {
-      window.alert("Password and Re-Password don't match!");
-    }
-
-    auth.register({ username, password }).then((res) => {
-      console.log(res);
-      history.push("/books");
-    });
   };
   return (
     <div>
@@ -47,6 +51,7 @@ const RegisterPage = () => {
             onChange={(e) => setUsername(e.target.value)}
             required={true}
           />
+          <ToastContainer />
           <Input
             type="password"
             label="Password*"
@@ -56,6 +61,7 @@ const RegisterPage = () => {
             onChange={(e) => setPassword(e.target.value)}
             required={true}
           />
+
           <Input
             type="password"
             label="Re-confirm Password*"

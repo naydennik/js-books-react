@@ -22,22 +22,22 @@ const auth = {
 
     return API.post(`/user/${config.kinveyAppKey}`, params, {
       headers: this.headers,
-    })
-      .then(() => {
-        console.log("Successfully registered");
-      })
-      .catch((err) => {
-        if ((err.status = 409)) {
-          window.alert(
-            "This username is taken! Please try with different one."
-          );
-        } else {
-          window.alert(
-            "Something went wrong ): Please check if the username and password are correct!\nIf you still have a problem, contact us."
-          );
-        }
-        console.warn(err);
-      });
+    });
+    // .then(() => {
+    //   console.log("Successfully registered");
+    // })
+    // .catch((err) => {
+    //   if ((err.status = 409)) {
+    //     window.alert(
+    //       "This username is taken! Please try with different one."
+    //     );
+    //   } else {
+    //     window.alert(
+    //       "Something went wrong ): Please check if the username and password are correct!\nIf you still have a problem, contact us."
+    //     );
+    //   }
+    //   console.warn(err);
+    // });
   },
 
   login(params) {
