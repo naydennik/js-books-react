@@ -7,14 +7,15 @@ import Footer from "../../components/footer";
 import Button from "../../components/button";
 import InputCreate from "../../components/input-create";
 import AlertMessage from "../../components/alert";
-
-const titlePattern = /^[A-Z]{1}.+$/gm;
-const authorPattern = /^[A-Z][A-Za-z ,]+$/gm;
-const descriptionPattern = /^.{10,}$/gm;
-const isbnPattern = /^[\d]{13}$/gm;
-const publisherPattern = /^.{2,}$/gm;
-const publishedPattern = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/gm;
-const pagesPattern = /^[\d]+$/gm;
+import {
+  titlePattern,
+  authorPattern,
+  descriptionPattern,
+  isbnPattern,
+  publisherPattern,
+  publishedPattern,
+  pagesPattern,
+} from "../../services/patterns";
 
 class CreatePage extends Component {
   constructor(props) {

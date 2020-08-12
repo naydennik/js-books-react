@@ -8,6 +8,16 @@ import Button from "../../components/button";
 import InputCreate from "../../components/input-create";
 import API from "../../config/api";
 import config from "../../config/config";
+import AlertMessage from "../../components/alert";
+import {
+  titlePattern,
+  authorPattern,
+  descriptionPattern,
+  isbnPattern,
+  publisherPattern,
+  publishedPattern,
+  pagesPattern,
+} from "../../services/patterns";
 
 class EditPage extends Component {
   _isMounted = false;
@@ -25,11 +35,72 @@ class EditPage extends Component {
       published: "",
       pages: "",
       website: "",
+      errors: {
+        title: "",
+        subtitle: "",
+        author: "",
+        description: "",
+        isbn: "",
+        publisher: "",
+        published: "",
+        pages: "",
+      },
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
     this.id = window.location.pathname.split("/")[2];
+  }
+
+  handleBlur(event) {
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+    switch (name) {
+      case "title":
+        errors.title = !titlePattern.test(value)
+          ? "The title should start with capital letter and should be at least two symbols long!"
+          : "";
+        break;
+      case "subtitle":
+        errors.subtitle = !titlePattern.test(value)
+          ? "The subtitle should start with capital letter and should be at least two symbols long!"
+          : "";
+        break;
+      case "author":
+        errors.author = !authorPattern.test(value)
+          ? "The author's name should start with capital letter and should be at least 2 symbols long!"
+          : "";
+        break;
+      case "description":
+        errors.description = !descriptionPattern.test(value)
+          ? "The description should be more than 10 symbols!"
+          : "";
+        break;
+      case "isbn":
+        errors.isbn = !isbnPattern.test(value)
+          ? "ISBN should contain only digits and should be exactly 13 symbols long!"
+          : "";
+        break;
+      case "publisher":
+        errors.publisher = !publisherPattern.test(value)
+          ? "The publisher's name should be at least 2 symbols long!"
+          : "";
+        break;
+      case "published":
+        errors.published = !publishedPattern.test(value)
+          ? "Please enter correct date in the format 'yyyy-mm-dd'!"
+          : "";
+        break;
+      case "pages":
+        errors.pages = !pagesPattern.test(value)
+          ? "The number of pages should be a digit!"
+          : "";
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value });
   }
 
   handleChange(event) {
@@ -109,6 +180,7 @@ class EditPage extends Component {
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <div>
         <Header />
@@ -129,7 +201,11 @@ class EditPage extends Component {
                   name="title"
                   value={this.state.title}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.title.length > 0 && (
+                  <AlertMessage message={errors.title} />
+                )}
                 <InputCreate
                   title="Book Subtitle"
                   id="subtitle"
@@ -137,7 +213,11 @@ class EditPage extends Component {
                   name="subtitle"
                   value={this.state.subtitle}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.subtitle.length > 0 && (
+                  <AlertMessage message={errors.subtitle} />
+                )}
                 <InputCreate
                   title="Author"
                   id="author"
@@ -145,7 +225,11 @@ class EditPage extends Component {
                   name="author"
                   value={this.state.author}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.author.length > 0 && (
+                  <AlertMessage message={errors.author} />
+                )}
                 <InputCreate
                   title="Image"
                   id="image"
@@ -166,7 +250,11 @@ class EditPage extends Component {
                   name="description"
                   value={this.state.description}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.description.length > 0 && (
+                  <AlertMessage message={errors.description} />
+                )}
                 <InputCreate
                   title="ISBN"
                   id="isbn"
@@ -174,7 +262,11 @@ class EditPage extends Component {
                   name="isbn"
                   value={this.state.isbn}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.isbn.length > 0 && (
+                  <AlertMessage message={errors.isbn} />
+                )}
                 <InputCreate
                   title="Publisher"
                   id="publisher"
@@ -182,7 +274,11 @@ class EditPage extends Component {
                   name="publisher"
                   value={this.state.publisher}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.publisher.length > 0 && (
+                  <AlertMessage message={errors.publisher} />
+                )}
                 <InputCreate
                   title="Published on"
                   id="published"
@@ -190,7 +286,11 @@ class EditPage extends Component {
                   name="published"
                   value={this.state.published}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.published.length > 0 && (
+                  <AlertMessage message={errors.published} />
+                )}
                 <InputCreate
                   title="Pages"
                   id="pages"
@@ -198,7 +298,11 @@ class EditPage extends Component {
                   name="pages"
                   value={this.state.pages}
                   onChange={this.handleChange}
+                  onBlur={this.handleBlur}
                 />
+                {errors.pages.length > 0 && (
+                  <AlertMessage message={errors.pages} />
+                )}
                 <InputCreate
                   title="Official Website"
                   id="website"

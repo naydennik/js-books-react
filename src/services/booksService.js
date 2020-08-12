@@ -36,7 +36,6 @@ const booksServices = {
       .then((res) => {
         if (res.status >= 200 && res.status < 300) {
           window.alert("Successfully edited!");
-          // this.$router.push({ name: "allBooks" });
         }
       })
       .catch((error) => {
