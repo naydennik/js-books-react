@@ -1,7 +1,6 @@
 import config from "../config/config";
 import API from "../config/api";
 
-const getAuthtoken = () => sessionStorage.getItem("authtoken");
 const url = `/appdata/${config.kinveyAppKey}/books`;
 const token = sessionStorage.getItem("authtoken");
 
@@ -11,16 +10,6 @@ const headers = {
 };
 
 const booksServices = {
-  // getAllBooks() {
-  //   return API.get(url, { headers })
-  //     .then(({ data }) => {
-  //       return data;
-  //     })
-  //     .catch(() => {
-  //       //console.warn(error);
-  //     });
-  // },
-
   getBookDetails(id) {
     return API.get(`${url}/${id}`, { headers })
       .then(({ data }) => {
@@ -58,21 +47,16 @@ const booksServices = {
   },
 
   deleteBook(id) {
-    return API.delete(`${url}/${id}`)
+    return API.delete(`${url}/${id}`, { headers })
       .then((res) => {
         if (res.status >= 200 && res.status < 300) {
           window.alert("Successfully deleted!");
-          // this.$router.push({ name: "allBooks" });
         }
       })
       .catch((error) => {
         window.alert("Something went wrong! Please try again.");
         console.warn(error);
       });
-  },
-
-  created() {
-    this.$http.defaults.headers["Authorization"] = `Kinvey ${getAuthtoken()}`;
   },
 };
 

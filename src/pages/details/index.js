@@ -7,6 +7,7 @@ import Footer from "../../components/footer";
 import Spinner from "../../components/spinner";
 import { useHistory } from "react-router-dom";
 import API from "../../config/api";
+import service from "../../services/booksService";
 
 const DetailsPage = () => {
   const [isAdmin, setisAdmin] = useState(false);
@@ -20,6 +21,11 @@ const DetailsPage = () => {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Kinvey ${token}`,
+  };
+  const handleDelete = () => {
+    return service.deleteBook(id).then(() => {
+      history.push("/books");
+    });
   };
 
   useEffect(() => {
@@ -74,12 +80,16 @@ const DetailsPage = () => {
               </li>
             </ul>
             {isAdmin ? (
-              <Button
-                name="EDIT"
-                onClick={() => {
-                  history.push(`/edit/${book._id}`);
-                }}
-              />
+              <>
+                <Button
+                  name="Edit"
+                  id={styles.btn}
+                  onClick={() => {
+                    history.push(`/edit/${book._id}`);
+                  }}
+                />
+                <Button name="Delete" id={styles.btn} onClick={handleDelete} />
+              </>
             ) : null}
           </div>
         </div>
