@@ -35,7 +35,7 @@ This project was generated with React.js;
 
 5. Pages Folder - in different subfolders are all app's pages with programming logic, html and css;
 
-## Project setup - this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project setup (this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app))
 
 ```
 npm install
