@@ -27,7 +27,7 @@ This project was generated with React.js;
 
 4. Services Folder:
 
-   - authService - responsible for registration, logging imn and logging out processes;
+   - authService - responsible for registration, logging in and logging out processes;
    - booksService - responsible for all functionality for showing, creating, editing and deleting the books;
    - loginValidator - validating the login form;
    - registerValidator - validating the register form;
