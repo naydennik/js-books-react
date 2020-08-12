@@ -6,6 +6,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Button from "../../components/button";
 import InputCreate from "../../components/input-create";
+import Textarea from "../../components/textarea";
 import AlertMessage from "../../components/alert";
 import {
   titlePattern,
@@ -209,7 +210,7 @@ class CreatePage extends Component {
                   src={this.state.imageUrl}
                   alt={this.state.title}
                 />
-                <InputCreate
+                <Textarea
                   title="Description"
                   id="description"
                   type="text"

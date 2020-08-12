@@ -11,13 +11,13 @@ const headers = {
 
 const booksServices = {
   getBookDetails(id) {
-    return API.get(`${url}/${id}`, { headers })
-      .then(({ data }) => {
-        return data;
-      })
-      .catch((error) => {
-        console.warn(error);
-      });
+    return API.get(`${url}/${id}`, { headers });
+    // .then(({ data }) => {
+    //   return data;
+    // })
+    // .catch((error) => {
+    //   console.warn(error);
+    // });
   },
 
   editBook(id, params) {

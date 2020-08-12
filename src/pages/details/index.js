@@ -6,7 +6,6 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Spinner from "../../components/spinner";
 import { useHistory } from "react-router-dom";
-import API from "../../config/api";
 import service from "../../services/booksService";
 
 const DetailsPage = () => {
@@ -14,14 +13,8 @@ const DetailsPage = () => {
   const [book, setBook] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
-  const url = `/appdata/${config.kinveyAppKey}/books`;
-  const token = sessionStorage.getItem("authtoken");
   const id = window.location.pathname.split("/")[2];
 
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Kinvey ${token}`,
-  };
   const handleDelete = () => {
     return service.deleteBook(id).then(() => {
       history.push("/books");
@@ -35,17 +28,20 @@ const DetailsPage = () => {
       setisAdmin(true);
     }
 
-    API.get(`${url}/${id}`, { headers }).then(({ data }) => {
-      if (isMounted) {
-        setBook(data);
-        setIsLoading(false);
-      }
-    });
+    service
+      .getBookDetails(id)
+      .then(({ data }) => {
+        if (isMounted) {
+          setBook(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.error(err));
 
     return () => {
       isMounted = false;
     };
-  }, [headers, id, url]);
+  }, [id]);
 
   return (
     <div>

@@ -6,6 +6,7 @@ import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Button from "../../components/button";
 import InputCreate from "../../components/input-create";
+import Textarea from "../../components/textarea";
 import API from "../../config/api";
 import config from "../../config/config";
 import AlertMessage from "../../components/alert";
@@ -239,11 +240,11 @@ class EditPage extends Component {
                   onChange={this.handleChange}
                 />
                 <img
-                  id="img"
+                  id={styles.img}
                   src={this.state.imageUrl}
                   alt={this.state.title}
                 />
-                <InputCreate
+                <Textarea
                   title="Description"
                   id="description"
                   type="text"
