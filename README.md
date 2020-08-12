@@ -1,16 +1,57 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://firebearstudio.com/blog/wp-content/uploads/2016/01/Best-Node.JS-Books-1024x551.jpg" title="JS Books" alt="JS Books">
 
-## Available Scripts
+# JS Books
 
-In the project directory, you can run:
+A simple app for creating and viewing books dedicated to Javascript
 
-### `npm start`
+## Quick description
+
+To enter the app everyone has to register and login first.
+There are two types of users - regular and admins.
+Regular users can only view the list with already created books. To test the regular users experience please create a new account.
+The admins have the right to create, edit and delete books. To test the admin users experience please use these credentials:
+
+### username: user1, password: 12345
+
+## Used technology
+
+This project was generated with React.js;
+
+## Architecture
+
+1. Components Folder - containing reusable elements;
+
+2. Config Folder - containing necessary information for fetching data from server and authenticating the users;
+
+3. Routing Folder - containing all necessary for creating routes including protected routes;
+
+4. Services Folder:
+
+   - authService - responsible for registration, logging imn and logging out processes;
+   - booksService - responsible for all functionality for showing, creating, editing and deleting the books;
+   - loginValidator - validating the login form;
+   - registerValidator - validating the register form;
+   - patterns - regex patterns used for the different validations;
+
+5. Pages Folder - in different subfolders are all app's pages with programming logic, html and css;
+
+## Project setup - this project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+
+```
+npm start
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+```
 
 ### `npm test`
 

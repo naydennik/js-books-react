@@ -1,9 +1,8 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { passwordPattern } from "./patterns";
 
 function loginValidator(username, password) {
-  const passwordPattern = /^[a-zA-Z1-9]{5,}$/gm;
-
   if (username.length < 5 || username === "") {
     toast.error("Username must be at least 5 characters long", {
       position: toast.POSITION.TOP_CENTER,
