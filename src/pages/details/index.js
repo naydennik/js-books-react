@@ -11,7 +11,7 @@ import service from "../../services/booksService";
 const DetailsPage = () => {
   const [isAdmin, setisAdmin] = useState(false);
   const [book, setBook] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const id = window.location.pathname.split("/")[2];
 
@@ -23,20 +23,24 @@ const DetailsPage = () => {
 
   useEffect(() => {
     let isMounted = true;
+    setIsLoading(true);
 
     if (sessionStorage.getItem("id") === config.adminId) {
       setisAdmin(true);
     }
+    const fetchBook = async () => {
+      const res = await service
+        .getBookDetails(id)
+        .then(({ data }) => {
+          if (isMounted) {
+            setBook(data);
+            setIsLoading(false);
+          }
+        })
+        .catch((err) => console.error(err));
+    };
 
-    service
-      .getBookDetails(id)
-      .then(({ data }) => {
-        if (isMounted) {
-          setBook(data);
-          setIsLoading(false);
-        }
-      })
-      .catch((err) => console.error(err));
+    fetchBook();
 
     return () => {
       isMounted = false;
