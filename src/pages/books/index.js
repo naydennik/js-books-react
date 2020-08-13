@@ -3,12 +3,15 @@ import Book from "../../components/book";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Spinner from "../../components/spinner";
+import Pagination from "../../components/pagination";
 import API from "../../config/api";
 import config from "../../config/config";
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage] = useState(3);
 
   useEffect(() => {
     const url = `/appdata/${config.kinveyAppKey}/books`;
@@ -19,18 +22,29 @@ const BooksPage = () => {
       Authorization: `Kinvey ${token}`,
     };
     let isMounted = true;
-    API.get(url, { headers }).then(({ data }) => {
-      if (isMounted) {
-        setBooks(data);
-        setIsLoading(false);
-      }
-    });
+
+    const fetchBooks = async () => {
+      setIsLoading(true);
+      const res = await API.get(url, { headers }).then(({ data }) => {
+        if (isMounted) {
+          setBooks(data);
+          setIsLoading(false);
+        }
+      });
+    };
+
+    fetchBooks();
     return () => {
       isMounted = false;
     };
   }, []);
 
-  const renderBooks = books.map((book) => {
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  const paginate = (bookNumber) => setCurrentPage(bookNumber);
+
+  const renderBooks = currentBooks.map((book) => {
     return (
       <Book
         key={book._id}
@@ -47,7 +61,11 @@ const BooksPage = () => {
     <div>
       <Header />
       {isLoading ? <Spinner /> : <div className="row">{renderBooks}</div>}
-
+      <Pagination
+        booksPerPage={booksPerPage}
+        totalBooks={books.length}
+        paginate={paginate}
+      />
       <Footer />
     </div>
   );
