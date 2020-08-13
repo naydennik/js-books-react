@@ -29,7 +29,7 @@ const DetailsPage = () => {
       setisAdmin(true);
     }
     const fetchBook = async () => {
-      const res = await service
+      await service
         .getBookDetails(id)
         .then(({ data }) => {
           if (isMounted) {

@@ -25,7 +25,7 @@ const BooksPage = () => {
 
     const fetchBooks = async () => {
       setIsLoading(true);
-      const res = await API.get(url, { headers }).then(({ data }) => {
+      await API.get(url, { headers }).then(({ data }) => {
         if (isMounted) {
           setBooks(data);
           setIsLoading(false);
