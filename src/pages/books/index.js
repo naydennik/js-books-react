@@ -60,7 +60,14 @@ const BooksPage = () => {
   return (
     <div>
       <Header />
-      {isLoading ? <Spinner /> : <div className="row">{renderBooks}</div>}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className="container-fluid mt-4">
+          {" "}
+          <div className="row justify-content-center">{renderBooks}</div>
+        </div>
+      )}
       <Pagination
         booksPerPage={booksPerPage}
         totalBooks={books.length}

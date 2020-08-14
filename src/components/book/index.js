@@ -6,20 +6,26 @@ import { useHistory } from "react-router-dom";
 const Book = ({ title, subtitle, author, imageUrl, id }) => {
   const history = useHistory();
   return (
-    <div className="col-lg-4" id={styles.col}>
-      <h2 className="card-header">{title}</h2>
-      <div className="card-body">
-        <h3 className="card-title">{subtitle}</h3>
-        <h4 className="card-title">Author: {author}</h4>
+    <div className="col-auto mb-3 ">
+      <div className="card" id={styles.col}>
+        <div className="card-body">
+          <h2 className="card-title" id={styles.title}>
+            {title}
+          </h2>
+          <hr />
+          <br></br>
+          <h3 className="card-subtitle mb-3 text-muted">{subtitle}</h3>
+          <h4 className="card-title">Author: {author}</h4>
+        </div>
+        <img className="rounded" id={styles.image} src={imageUrl} alt={title} />
+        <br />
+        <Button
+          name="VIEW DETAILS"
+          onClick={() => {
+            history.push(`/details/${id}`);
+          }}
+        />
       </div>
-      <img className={styles.image} src={imageUrl} alt={title} />
-      <br />
-      <Button
-        name="VIEW DETAILS"
-        onClick={() => {
-          history.push(`/details/${id}`);
-        }}
-      />
     </div>
   );
 };

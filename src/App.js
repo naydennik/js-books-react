@@ -5,8 +5,8 @@ import UserContext from "./config/context";
 import { useState } from "react";
 
 const App = (props) => {
-  const [user, setUser] = useState(null);
-  const [logged, setLogged] = useState(false);
+  const [user] = useState(null);
+  const [logged] = useState(false);
 
   return (
     <UserContext.Provider value={{ user, logged }}>
