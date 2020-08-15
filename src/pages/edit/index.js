@@ -7,6 +7,7 @@ import Footer from "../../components/footer";
 import Button from "../../components/button";
 import InputCreate from "../../components/input-create";
 import Textarea from "../../components/textarea";
+import Spinner from "../../components/spinner";
 import API from "../../config/api";
 import config from "../../config/config";
 import AlertMessage from "../../components/alert";
@@ -22,6 +23,7 @@ import {
 
 class EditPage extends Component {
   _isMounted = false;
+  isLoading = false;
   constructor(props) {
     super(props);
 
@@ -143,34 +145,38 @@ class EditPage extends Component {
       });
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this._isMounted = true;
+    this.isLoading = true;
     const url = `/appdata/${config.kinveyAppKey}/books`;
     const token = sessionStorage.getItem("authtoken");
-
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Kinvey ${token}`,
     };
     let book;
 
-    await API.get(`${url}/${this.id}`, { headers }).then(({ data }) => {
-      if (this._isMounted) {
-        book = data;
-        this.setState({
-          title: book.title,
-          subtitle: book.subtitle,
-          author: book.author,
-          imageUrl: book.imageUrl,
-          description: book.description,
-          isbn: book.isbn,
-          publisher: book.publisher,
-          published: book.published,
-          pages: book.pages,
-          website: book.website,
-        });
-      }
-    });
+    const fetchBook = async () => {
+      await API.get(`${url}/${this.id}`, { headers }).then(({ data }) => {
+        if (this._isMounted) {
+          book = data;
+          this.setState({
+            title: book.title,
+            subtitle: book.subtitle,
+            author: book.author,
+            imageUrl: book.imageUrl,
+            description: book.description,
+            isbn: book.isbn,
+            publisher: book.publisher,
+            published: book.published,
+            pages: book.pages,
+            website: book.website,
+          });
+        }
+      });
+    };
+    fetchBook();
+    this.isLoading = false;
   }
 
   componentWillUnmount() {
@@ -182,141 +188,146 @@ class EditPage extends Component {
 
   render() {
     const { errors } = this.state;
+    const isLoading = this.isLoading;
     return (
       <div>
         <Header />
-        <div className="container" id={styles.container}>
-          <div className="row space-top">
-            <div className="col-md-12">
-              <h1>Edit Book</h1>
-              <br />
-            </div>
-          </div>
-          <form onSubmit={this.handleSubmit}>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <div className="container" id={styles.container}>
             <div className="row space-top">
-              <div className="col-md-4">
-                <InputCreate
-                  title="Book Title"
-                  id="title"
-                  type="text"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.title.length > 0 && (
-                  <AlertMessage message={errors.title} />
-                )}
-                <InputCreate
-                  title="Book Subtitle"
-                  id="subtitle"
-                  type="text"
-                  name="subtitle"
-                  value={this.state.subtitle}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.subtitle.length > 0 && (
-                  <AlertMessage message={errors.subtitle} />
-                )}
-                <InputCreate
-                  title="Author"
-                  id="author"
-                  type="text"
-                  name="author"
-                  value={this.state.author}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.author.length > 0 && (
-                  <AlertMessage message={errors.author} />
-                )}
-                <InputCreate
-                  title="Image"
-                  id="image"
-                  type="text"
-                  name="imageUrl"
-                  value={this.state.imageUrl}
-                  onChange={this.handleChange}
-                />
-                <img
-                  id={styles.img}
-                  src={this.state.imageUrl}
-                  alt={this.state.title}
-                />
-                <Textarea
-                  title="Description"
-                  id="description"
-                  type="text"
-                  name="description"
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.description.length > 0 && (
-                  <AlertMessage message={errors.description} />
-                )}
-                <InputCreate
-                  title="ISBN"
-                  id="isbn"
-                  type="number"
-                  name="isbn"
-                  value={this.state.isbn}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.isbn.length > 0 && (
-                  <AlertMessage message={errors.isbn} />
-                )}
-                <InputCreate
-                  title="Publisher"
-                  id="publisher"
-                  type="text"
-                  name="publisher"
-                  value={this.state.publisher}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.publisher.length > 0 && (
-                  <AlertMessage message={errors.publisher} />
-                )}
-                <InputCreate
-                  title="Published on"
-                  id="published"
-                  type="text"
-                  name="published"
-                  value={this.state.published}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.published.length > 0 && (
-                  <AlertMessage message={errors.published} />
-                )}
-                <InputCreate
-                  title="Pages"
-                  id="pages"
-                  type="number"
-                  name="pages"
-                  value={this.state.pages}
-                  onChange={this.handleChange}
-                  onBlur={this.handleBlur}
-                />
-                {errors.pages.length > 0 && (
-                  <AlertMessage message={errors.pages} />
-                )}
-                <InputCreate
-                  title="Official Website"
-                  id="website"
-                  type="text"
-                  name="website"
-                  value={this.state.website}
-                  onChange={this.handleChange}
-                />
-                <Button type="submit" name="Edit Book" />
+              <div className="col-md-12">
+                <h1>Edit Book</h1>
+                <br />
               </div>
             </div>
-          </form>
-        </div>
+            <form onSubmit={this.handleSubmit}>
+              <div className="row space-top">
+                <div className="col-md-4">
+                  <InputCreate
+                    title="Book Title"
+                    id="title"
+                    type="text"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.title.length > 0 && (
+                    <AlertMessage message={errors.title} />
+                  )}
+                  <InputCreate
+                    title="Book Subtitle"
+                    id="subtitle"
+                    type="text"
+                    name="subtitle"
+                    value={this.state.subtitle}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.subtitle.length > 0 && (
+                    <AlertMessage message={errors.subtitle} />
+                  )}
+                  <InputCreate
+                    title="Author"
+                    id="author"
+                    type="text"
+                    name="author"
+                    value={this.state.author}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.author.length > 0 && (
+                    <AlertMessage message={errors.author} />
+                  )}
+                  <InputCreate
+                    title="Image"
+                    id="image"
+                    type="text"
+                    name="imageUrl"
+                    value={this.state.imageUrl}
+                    onChange={this.handleChange}
+                  />
+                  <img
+                    id={styles.img}
+                    src={this.state.imageUrl}
+                    alt={this.state.title}
+                  />
+                  <Textarea
+                    title="Description"
+                    id="description"
+                    type="text"
+                    name="description"
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.description.length > 0 && (
+                    <AlertMessage message={errors.description} />
+                  )}
+                  <InputCreate
+                    title="ISBN"
+                    id="isbn"
+                    type="number"
+                    name="isbn"
+                    value={this.state.isbn}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.isbn.length > 0 && (
+                    <AlertMessage message={errors.isbn} />
+                  )}
+                  <InputCreate
+                    title="Publisher"
+                    id="publisher"
+                    type="text"
+                    name="publisher"
+                    value={this.state.publisher}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.publisher.length > 0 && (
+                    <AlertMessage message={errors.publisher} />
+                  )}
+                  <InputCreate
+                    title="Published on"
+                    id="published"
+                    type="text"
+                    name="published"
+                    value={this.state.published}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.published.length > 0 && (
+                    <AlertMessage message={errors.published} />
+                  )}
+                  <InputCreate
+                    title="Pages"
+                    id="pages"
+                    type="number"
+                    name="pages"
+                    value={this.state.pages}
+                    onChange={this.handleChange}
+                    onBlur={this.handleBlur}
+                  />
+                  {errors.pages.length > 0 && (
+                    <AlertMessage message={errors.pages} />
+                  )}
+                  <InputCreate
+                    title="Official Website"
+                    id="website"
+                    type="text"
+                    name="website"
+                    value={this.state.website}
+                    onChange={this.handleChange}
+                  />
+                  <Button type="submit" name="Edit Book" />
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
         <Footer />
       </div>
     );

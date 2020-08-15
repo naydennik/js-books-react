@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import config from "../../config/config";
+import API from "../../config/api";
+import service from "../../services/booksService";
 import Button from "../../components/button";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import Spinner from "../../components/spinner";
 import { useHistory } from "react-router-dom";
-import service from "../../services/booksService";
 
 const DetailsPage = () => {
   const [isAdmin, setisAdmin] = useState(false);
@@ -22,6 +23,12 @@ const DetailsPage = () => {
   };
 
   useEffect(() => {
+    const url = `/appdata/${config.kinveyAppKey}/books`;
+    const token = sessionStorage.getItem("authtoken");
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Kinvey ${token}`,
+    };
     let isMounted = true;
     setIsLoading(true);
 
@@ -29,8 +36,9 @@ const DetailsPage = () => {
       setisAdmin(true);
     }
     const fetchBook = async () => {
-      await service
-        .getBookDetails(id)
+      await //service
+      //.getBookDetails(id)
+      API.get(`${url}/${id}`, { headers })
         .then(({ data }) => {
           if (isMounted) {
             setBook(data);
