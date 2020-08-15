@@ -6,17 +6,16 @@ import Spinner from "../../components/spinner";
 import Pagination from "../../components/pagination";
 import API from "../../config/api";
 import config from "../../config/config";
-import { useUserContext } from "../../config/context";
 
 const BooksPage = () => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage] = useState(3);
-  const { token } = useUserContext();
 
   useEffect(() => {
     const url = `/appdata/${config.kinveyAppKey}/books`;
+    const token = sessionStorage.getItem("authtoken");
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Kinvey ${token}`,
@@ -37,7 +36,7 @@ const BooksPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [token]);
+  }, []);
 
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;

@@ -6,34 +6,24 @@ import { useState } from "react";
 
 const App = (props) => {
   const [user, setUser] = useState(null);
-  const [id, setId] = useState(null);
-  const [token, setToken] = useState(null);
 
-  const updateUser = (a, b, c) => {
-    setUser(a);
-    setId(b);
-    setToken(c);
+  const updateUser = (params) => {
+    return setUser(params);
   };
 
   const logOut = () => {
-    setUser(null);
-    setId(null);
-    setToken(null);
+    return setUser(null);
   };
 
   useEffect(() => {
-    const authtoken = sessionStorage.getItem("authtoken");
     const username = sessionStorage.getItem("username");
-    const id = sessionStorage.getItem("id");
-    if (authtoken !== token) {
+    if (username !== user) {
       setUser(username);
-      setId(id);
-      setToken(authtoken);
     }
-  }, [token]);
+  }, [user]);
 
   return (
-    <UserContext.Provider value={{ user, id, token, updateUser, logOut }}>
+    <UserContext.Provider value={{ user, updateUser, logOut }}>
       {props.children}
     </UserContext.Provider>
   );

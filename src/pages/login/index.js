@@ -31,7 +31,7 @@ const LoginPage = (props) => {
             authtoken: res.data._kmd.authtoken,
             id: res.data._id,
           });
-          updateUser(res.data.username, res.data._id, res.data._kmd.authtoken);
+          updateUser(res.data.username);
         })
         .then(() => {
           window.alert("Successfully logged in!");

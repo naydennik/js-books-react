@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import config from "../../config/config";
-import { useUserContext } from "../../config/context";
 import API from "../../config/api";
 import service from "../../services/booksService";
 import Button from "../../components/button";
@@ -16,7 +15,6 @@ const DetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
   const id = window.location.pathname.split("/")[2];
-  const { token } = useUserContext();
 
   const handleDelete = () => {
     return service.deleteBook(id).then(() => {
@@ -26,6 +24,7 @@ const DetailsPage = () => {
 
   useEffect(() => {
     const url = `/appdata/${config.kinveyAppKey}/books`;
+    const token = sessionStorage.getItem("authtoken");
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Kinvey ${token}`,
@@ -52,7 +51,7 @@ const DetailsPage = () => {
     return () => {
       isMounted = false;
     };
-  }, [token, id]);
+  }, [id]);
 
   return (
     <div>
