@@ -1,8 +1,15 @@
-import React from "react";
+import { createContext, useContext } from "react";
 
-const UserContext = React.createContext({
-  logged: false,
+export const UserContext = createContext({
   user: null,
+  id: null,
+  token: null,
+  updateUser: () => {},
+  logOut: () => {},
 });
 
-export default UserContext;
+export function useUserContext() {
+  const { user, id, token, updateUser, logOut } = useContext(UserContext);
+
+  return { user, id, token, updateUser, logOut };
+}

@@ -9,11 +9,13 @@ import { useHistory, Link } from "react-router-dom";
 import loginValidator from "../../services/loginValidator";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useUserContext } from "../../config/context";
 
 const LoginPage = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const { updateUser } = useUserContext();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,6 +31,7 @@ const LoginPage = (props) => {
             authtoken: res.data._kmd.authtoken,
             id: res.data._id,
           });
+          updateUser(res.data.username, res.data._id, res.data._kmd.authtoken);
         })
         .then(() => {
           window.alert("Successfully logged in!");

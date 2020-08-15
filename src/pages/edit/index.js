@@ -10,6 +10,7 @@ import Textarea from "../../components/textarea";
 import Spinner from "../../components/spinner";
 import API from "../../config/api";
 import config from "../../config/config";
+import { UserContext } from "../../config/context";
 import AlertMessage from "../../components/alert";
 import {
   titlePattern,
@@ -24,6 +25,7 @@ import {
 class EditPage extends Component {
   _isMounted = false;
   isLoading = false;
+  static contextType = UserContext;
   constructor(props) {
     super(props);
 
@@ -149,7 +151,7 @@ class EditPage extends Component {
     this._isMounted = true;
     this.isLoading = true;
     const url = `/appdata/${config.kinveyAppKey}/books`;
-    const token = sessionStorage.getItem("authtoken");
+    const { token } = this.context;
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Kinvey ${token}`,

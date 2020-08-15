@@ -3,12 +3,14 @@ import styles from "./index.module.css";
 import auth from "../../services/authService";
 import { useHistory } from "react-router-dom";
 import config from "../../config/config";
+import { useUserContext } from "../../config/context";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState("dropdown-menu");
   const [isAdmin, setisAdmin] = useState(false);
   const { logout } = auth;
   const history = useHistory();
+  const { user, logOut } = useUserContext();
 
   const toggle = (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ const Header = () => {
 
   const handleLogout = () => {
     return logout().then(() => {
+      logOut();
       history.push("/");
     });
   };
@@ -28,8 +31,6 @@ const Header = () => {
       setisAdmin(true);
     }
   }, []);
-
-  const username = sessionStorage.getItem("username");
 
   return (
     <div className={styles.header}>
@@ -50,7 +51,7 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto">
-            {!username ? (
+            {!user ? (
               <>
                 <li className="nav-item active">
                   <a className="nav-link" href="/login">
@@ -104,10 +105,10 @@ const Header = () => {
               </div>
             </li>
           </ul>
-          {username ? (
+          {user ? (
             <ul className="navbar-nav ml-auto nav-flex-icons">
               <li className="navbar-nav">
-                <p className="navbar-brand">Hello, {username}</p>
+                <p className="navbar-brand">Hello, {user}</p>
               </li>
               <li className="nav-item avatar">
                 <p className="nav-link p-0">
