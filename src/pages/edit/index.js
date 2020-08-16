@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./index.module.css";
 import service from "../../services/booksService";
 import Header from "../../components/header";
@@ -323,6 +324,9 @@ class EditPage extends Component {
                     onChange={this.handleChange}
                   />
                   <Button type="submit" name="Edit Book" />
+                  <Link to="/books">
+                    <Button id={styles.button} name="Take me back" />
+                  </Link>
                 </div>
               </div>
             </form>
